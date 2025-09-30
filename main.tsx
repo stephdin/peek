@@ -23,8 +23,8 @@ const [commits, branches, _files, _tags] = await Promise.all([
   git.listFiles({ fs, dir }),
   git.listTags({ fs, dir }),
 ]);
-const app = new Hono();
 
+const app = new Hono();
 
 app.use("/*", cors());
 
@@ -59,18 +59,20 @@ Deno.serve(
     hostname: "127.0.0.1",
     port: 8000,
     onListen({ hostname, port }) {
-    console.log(`
-██████  ███████ ██████  ██ 
-██   ██ ██      ██   ██ ██ 
-██████  █████   ██████  ██ 
-██      ██      ██   ██ ██ 
-██      ███████ ██   ██ ██                                       
+      console.log(`                                           
+                              ██
+                                  
+  ██▄███▄    ▄████▄   ██▄███  ██
+  ██▀  ▀██  ██▄▄▄▄██  ██▀     ██
+  ██    ██  ██▀▀▀▀▀▀  ██      ██
+  ███▄▄██▀  ▀██▄▄▄▄█  ██      ██
+  ██ ▀▀▀      ▀▀▀▀▀   ▀▀      ▀▀
+  ██
 
-Open your browser and view your
-Git repo at http://${hostname}:${port}
+Open your web browser and view your
+Git repository at http://${hostname}:${port}
 
 Press Ctrl+C to stop
-
 `);
     },
   },
