@@ -10,7 +10,7 @@ import Commits from "./pages/commits.tsx";
 import Branches from "./pages/branches.tsx";
 import Layout from "./components/layout.tsx";
 
-const dir = "../orbita/";
+const dir = ".";
 
 const dirEntries: Array<string> = [];
 for await (const dirEntry of Deno.readDir(dir)) {
