@@ -17,16 +17,14 @@ for await (const dirEntry of Deno.readDir(dir)) {
   dirEntries.push(dirEntry.name);
 }
 
-const [commits, branches, files, tags] = await Promise.all([
+const [commits, branches, _files, _tags] = await Promise.all([
   git.log({ fs, dir }),
   git.listBranches({ fs, dir }),
-  git.listFiles({ fs, dir }), 
+  git.listFiles({ fs, dir }),
   git.listTags({ fs, dir }),
 ]);
 const app = new Hono();
 
-console.log(files);
-console.log(tags);
 
 app.use("/*", cors());
 
@@ -56,4 +54,25 @@ app.get("/branches", (c) =>
 
 app.use("/static/*", serveStatic({ root: "./" }));
 
-Deno.serve({ port: 8000 }, app.fetch);
+Deno.serve(
+  {
+    hostname: "127.0.0.1",
+    port: 8000,
+    onListen({ hostname, port }) {
+    console.log(`
+██████  ███████ ██████  ██ 
+██   ██ ██      ██   ██ ██ 
+██████  █████   ██████  ██ 
+██      ██      ██   ██ ██ 
+██      ███████ ██   ██ ██                                       
+
+Open your browser and view your
+Git repo at http://${hostname}:${port}
+
+Press Ctrl+C to stop
+
+`);
+    },
+  },
+  app.fetch
+);
