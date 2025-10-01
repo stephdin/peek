@@ -1,6 +1,6 @@
-# peri
+# peek
 
-**peri** is a simple Git repository viewer built with TypeScript and Deno.
+**peek** is a simple Git repository viewer built with TypeScript and Deno.
 
 ## Features
 
@@ -13,9 +13,9 @@
 1. Install [Deno](https://deno.land/).
 2. Clone this repository:
     ```sh
-    git clone https://github.com/stephdin/peri.git
+    git clone https://github.com/stephdin/peek.git
     ```
-3. Run peri:
+3. Run peek:
     ```sh
     deno task run
     ```

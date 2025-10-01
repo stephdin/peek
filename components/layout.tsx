@@ -8,7 +8,7 @@ const Layout = (props: Props) => {
   return (
     <html>
       <head>
-        <title>peri - git viewer</title>
+        <title>peek - git viewer</title>
         <link rel="stylesheet" href="./static/style.css" />
       </head>
       <body>{props.children}</body>
