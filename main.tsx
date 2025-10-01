@@ -13,9 +13,9 @@ import Tags from "./pages/tags.tsx";
 
 const dir = ".";
 
-const dirEntries: Array<string> = [];
+const dirEntries: Array<{ name: string; isDir: boolean }> = [];
 for await (const dirEntry of Deno.readDir(dir)) {
-  dirEntries.push(dirEntry.name);
+  dirEntries.push({ name: dirEntry.name, isDir: dirEntry.isDirectory });
 }
 
 const [commits, branches, _files, tags, readme] = await Promise.all([
@@ -23,7 +23,7 @@ const [commits, branches, _files, tags, readme] = await Promise.all([
   git.listBranches({ fs, dir }),
   git.listFiles({ fs, dir }),
   git.listTags({ fs, dir }),
-  Deno.readTextFile("README.md").then((text) => marked.parse(text))
+  Deno.readTextFile("README.md").then((text) => marked.parse(text)),
 ]);
 
 const app = new Hono();
@@ -33,7 +33,7 @@ app.use("/*", cors());
 app.get("/", (c) =>
   c.html(
     <Layout>
-      <Index files={dirEntries} readme={readme}/>
+      <Index files={dirEntries} readme={readme} />
     </Layout>
   )
 );

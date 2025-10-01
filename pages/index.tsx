@@ -1,5 +1,5 @@
 type Props = {
-  files: Array<string>;
+  files: Array<{ name: string; isDir: boolean }>;
   readme: string;
 };
 
@@ -17,12 +17,25 @@ const Index = (props: Props) => {
           <a href="/tags">Tags</a>
         </li>
       </ul>
+
       <h1>Files</h1>
-      <ul>
-        {props.files.map((file) => (
-          <li key={file}>{file}</li>
-        ))}
-      </ul>
+
+      <table>
+        <tbody>
+          {props.files.map((file) => (
+            <tr>
+              <td>
+                {file.isDir ? (
+                  <img class="icon" src="./static/folder.svg" />
+                ) : (
+                  <img class="icon" src="./static/file.svg" />
+                )}
+              </td>
+              <td>{file.name}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <div dangerouslySetInnerHTML={{ __html: props.readme }} />
     </>
