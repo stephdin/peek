@@ -1,5 +1,6 @@
 type Props = {
   files: Array<string>;
+  readme: string;
 };
 
 const Index = (props: Props) => {
@@ -12,7 +13,7 @@ const Index = (props: Props) => {
         <li>
           <a href="/branches">Branches</a>
         </li>
-         <li>
+        <li>
           <a href="/tags">Tags</a>
         </li>
       </ul>
@@ -22,6 +23,8 @@ const Index = (props: Props) => {
           <li key={file}>{file}</li>
         ))}
       </ul>
+
+      <div dangerouslySetInnerHTML={{ __html: props.readme }} />
     </>
   );
 };

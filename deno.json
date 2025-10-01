@@ -4,11 +4,12 @@
     "run": "deno run --allow-all main.tsx"
   },
   "imports": {
-    "@hono/hono": "jsr:@hono/hono@^4.9.9",
-    "@isomophic-git/isomophic-git": "npm:isomorphic-git@1.33.2"
+    "hono": "jsr:@hono/hono@^4.9.9",
+    "isomophic-git": "npm:isomorphic-git@1.33.2",
+    "marked": "npm:marked@16.3.0"
   },
   "compilerOptions": {
     "jsx": "precompile",
-    "jsxImportSource": "@hono/hono/jsx"
+    "jsxImportSource": "hono/jsx"
   }
 }

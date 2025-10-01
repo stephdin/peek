@@ -1,4 +1,4 @@
-import { ReadCommitResult } from "@isomophic-git/isomophic-git";
+import { ReadCommitResult } from "isomophic-git";
 
 type Props = {
   commits: Array<ReadCommitResult>;

@@ -2,7 +2,8 @@
   "version": "5",
   "specifiers": {
     "jsr:@hono/hono@^4.9.9": "4.9.9",
-    "npm:isomorphic-git@1.33.2": "1.33.2"
+    "npm:isomorphic-git@1.33.2": "1.33.2",
+    "npm:marked@16.3.0": "16.3.0"
   },
   "jsr": {
     "@hono/hono@4.9.9": {
@@ -181,6 +182,10 @@
       ],
       "bin": true
     },
+    "marked@16.3.0": {
+      "integrity": "sha512-K3UxuKu6l6bmA5FUwYho8CfJBlsUWAooKtdGgMcERSpF7gcBUrCGsLH7wDaaNOzwq18JzSUDyoEb/YsrqMac3w==",
+      "bin": true
+    },
     "math-intrinsics@1.1.0": {
       "integrity": "sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g=="
     },
@@ -300,7 +305,8 @@
   "workspace": {
     "dependencies": [
       "jsr:@hono/hono@^4.9.9",
-      "npm:isomorphic-git@1.33.2"
+      "npm:isomorphic-git@1.33.2",
+      "npm:marked@16.3.0"
     ]
   }
 }

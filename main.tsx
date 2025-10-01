@@ -1,14 +1,14 @@
-import { Hono } from "@hono/hono";
-import { cors } from "@hono/hono/cors";
-import { serveStatic } from "@hono/hono/deno";
-
-import git from "@isomophic-git/isomophic-git";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { serveStatic } from "hono/deno";
+import git from "isomophic-git";
+import { marked } from "marked";
 import fs from "node:fs";
 
-import Index from "./pages/index.tsx";
-import Commits from "./pages/commits.tsx";
-import Branches from "./pages/branches.tsx";
 import Layout from "./components/layout.tsx";
+import Branches from "./pages/branches.tsx";
+import Commits from "./pages/commits.tsx";
+import Index from "./pages/index.tsx";
 import Tags from "./pages/tags.tsx";
 
 const dir = ".";
@@ -18,11 +18,12 @@ for await (const dirEntry of Deno.readDir(dir)) {
   dirEntries.push(dirEntry.name);
 }
 
-const [commits, branches, _files, tags] = await Promise.all([
+const [commits, branches, _files, tags, readme] = await Promise.all([
   git.log({ fs, dir }),
   git.listBranches({ fs, dir }),
   git.listFiles({ fs, dir }),
   git.listTags({ fs, dir }),
+  Deno.readTextFile("README.md").then((text) => marked.parse(text))
 ]);
 
 const app = new Hono();
@@ -32,7 +33,7 @@ app.use("/*", cors());
 app.get("/", (c) =>
   c.html(
     <Layout>
-      <Index files={dirEntries} />
+      <Index files={dirEntries} readme={readme}/>
     </Layout>
   )
 );

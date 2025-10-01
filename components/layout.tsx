@@ -1,4 +1,4 @@
-import { JSX } from "@hono/hono/jsx/jsx-runtime";
+import { JSX } from "hono/jsx/jsx-runtime";
 
 type Props = {
   children: JSX.Element;
