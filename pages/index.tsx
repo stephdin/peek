@@ -12,6 +12,9 @@ const Index = (props: Props) => {
         <li>
           <a href="/branches">Branches</a>
         </li>
+         <li>
+          <a href="/tags">Tags</a>
+        </li>
       </ul>
       <h1>Files</h1>
       <ul>

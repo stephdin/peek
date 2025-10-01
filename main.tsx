@@ -9,6 +9,7 @@ import Index from "./pages/index.tsx";
 import Commits from "./pages/commits.tsx";
 import Branches from "./pages/branches.tsx";
 import Layout from "./components/layout.tsx";
+import Tags from "./pages/tags.tsx";
 
 const dir = ".";
 
@@ -17,7 +18,7 @@ for await (const dirEntry of Deno.readDir(dir)) {
   dirEntries.push(dirEntry.name);
 }
 
-const [commits, branches, _files, _tags] = await Promise.all([
+const [commits, branches, _files, tags] = await Promise.all([
   git.log({ fs, dir }),
   git.listBranches({ fs, dir }),
   git.listFiles({ fs, dir }),
@@ -52,6 +53,14 @@ app.get("/branches", (c) =>
   )
 );
 
+app.get("/tags", (c) =>
+  c.html(
+    <Layout>
+      <Tags tags={tags} />
+    </Layout>
+  )
+);
+
 app.use("/static/*", serveStatic({ root: "./" }));
 
 Deno.serve(
@@ -59,16 +68,16 @@ Deno.serve(
     hostname: "127.0.0.1",
     port: 8000,
     onListen({ hostname, port }) {
-      console.log(`                                         
-                            ▄▄       
-                            ██       
- ██▄███▄   ▄████▄   ▄████▄  ██ ▄██▀  
- ██▀  ▀██ ██▄▄▄▄██ ██▄▄▄▄██ ██▄██    
- ██    ██ ██▀▀▀▀▀▀ ██▀▀▀▀▀▀ ██▀██▄   
- ███▄▄██▀ ▀██▄▄▄▄█ ▀██▄▄▄▄█ ██  ▀█▄  
- ██ ▀▀▀     ▀▀▀▀▀    ▀▀▀▀▀  ▀▀   ▀▀▀ 
- ██                                     
-                                        
+      console.log(`
+                            ▄▄
+                            ██
+ ██▄███▄   ▄████▄   ▄████▄  ██ ▄██▀
+ ██▀  ▀██ ██▄▄▄▄██ ██▄▄▄▄██ ██▄██
+ ██    ██ ██▀▀▀▀▀▀ ██▀▀▀▀▀▀ ██▀██▄
+ ███▄▄██▀ ▀██▄▄▄▄█ ▀██▄▄▄▄█ ██  ▀█▄
+ ██ ▀▀▀     ▀▀▀▀▀    ▀▀▀▀▀  ▀▀   ▀▀▀
+ ██
+
 Open your web browser and view your
 Git repository at http://${hostname}:${port}
 
