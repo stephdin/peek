@@ -3,4 +3,15 @@ body {
     margin: auto;
     font-family: sans-serif;
     padding: 1rem;
+    background-color: #fefefe;
+    color: #333333;
+}
+
+@media (prefers-color-scheme: dark) {
+
+    body,
+    a {
+        background-color: #333333;
+        color: #fefefe;
+    }
 }
