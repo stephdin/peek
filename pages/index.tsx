@@ -1,7 +1,6 @@
+import fs from "fs";
+import git from "isomorphic-git";
 import { marked } from "marked";
-
-import git from "isomophic-git";
-import fs from "node:fs";
 
 const dir = ".";
 

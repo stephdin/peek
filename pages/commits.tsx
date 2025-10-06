@@ -1,5 +1,5 @@
-import git from "isomophic-git";
-import fs from "node:fs";
+import git from "isomorphic-git";
+import fs from "fs";
 
 const dir = ".";
 

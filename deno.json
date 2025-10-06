@@ -4,8 +4,9 @@
     "run": "deno run --allow-all main.tsx"
   },
   "imports": {
+    "fs": "node:fs",
     "hono": "jsr:@hono/hono@^4.9.9",
-    "isomophic-git": "npm:isomorphic-git@1.33.2",
+    "isomorphic-git": "npm:isomorphic-git@1.33.2",
     "marked": "npm:marked@16.3.0"
   },
   "compilerOptions": {
