@@ -1,13 +1,16 @@
-type Props = {
-  tags: Array<string>;
-};
+import git from "isomophic-git";
+import fs from "node:fs";
 
-const Tags = (props: Props) => {
+const dir = ".";
+
+const Tags = async () => {
+  const tags = await git.listTags({ fs, dir });
+
   return (
     <>
       <h1>Tags</h1>
       <ul>
-        {props.tags.map((tag) => (
+        {tags.map((tag) => (
           <li key={tag}>
             <strong>{tag}</strong>
           </li>

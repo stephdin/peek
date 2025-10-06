@@ -1,13 +1,16 @@
-type Props = {
-  branches: Array<string>;
-};
+import git from "isomophic-git";
+import fs from "node:fs";
 
-const Branches = (props: Props) => {
+const dir = ".";
+
+const Branches = async () => {
+  const branches = await git.listBranches({ fs, dir });
+
   return (
     <>
       <h1>Branches</h1>
       <ul>
-        {props.branches.map((branch) => (
+        {branches.map((branch) => (
           <li key={branch}>
             <strong>{branch}</strong>
           </li>

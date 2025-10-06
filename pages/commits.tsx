@@ -1,15 +1,16 @@
-import { ReadCommitResult } from "isomophic-git";
+import git from "isomophic-git";
+import fs from "node:fs";
 
-type Props = {
-  commits: Array<ReadCommitResult>;
-};
+const dir = ".";
 
-const Commits = (props: Props) => {
+const Commits = async () => {
+  const commits = await git.log({ fs, dir });
+
   return (
     <>
       <h1>Commits</h1>
       <ul>
-        {props.commits.map((commit) => (
+        {commits.map((commit) => (
           <li key={commit.oid}>
             <strong>{commit.commit.message.split("\n")[0]}</strong>
             <br />

@@ -1,9 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serveStatic } from "hono/deno";
-import git from "isomophic-git";
 import { marked } from "marked";
-import fs from "node:fs";
 
 import Layout from "./components/layout.tsx";
 import Branches from "./pages/branches.tsx";
@@ -18,13 +16,9 @@ for await (const dirEntry of Deno.readDir(dir)) {
   dirEntries.push({ name: dirEntry.name, isDir: dirEntry.isDirectory });
 }
 
-const [commits, branches, _files, tags, readme] = await Promise.all([
-  git.log({ fs, dir }),
-  git.listBranches({ fs, dir }),
-  git.listFiles({ fs, dir }),
-  git.listTags({ fs, dir }),
-  Deno.readTextFile("README.md").then((text) => marked.parse(text)),
-]);
+const readme = await Deno.readTextFile("README.md").then((text) =>
+  marked.parse(text)
+);
 
 const app = new Hono();
 
@@ -41,7 +35,7 @@ app.get("/", (c) =>
 app.get("/commits", (c) =>
   c.html(
     <Layout>
-      <Commits commits={commits} />
+      <Commits />
     </Layout>
   )
 );
@@ -49,7 +43,7 @@ app.get("/commits", (c) =>
 app.get("/branches", (c) =>
   c.html(
     <Layout>
-      <Branches branches={branches} />
+      <Branches />
     </Layout>
   )
 );
@@ -57,7 +51,7 @@ app.get("/branches", (c) =>
 app.get("/tags", (c) =>
   c.html(
     <Layout>
-      <Tags tags={tags} />
+      <Tags />
     </Layout>
   )
 );
