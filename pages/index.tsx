@@ -1,9 +1,49 @@
-type Props = {
-  files: Array<{ name: string; isDir: boolean }>;
-  readme: string;
-};
+import { marked } from "marked";
 
-const Index = (props: Props) => {
+import git from "isomophic-git";
+import fs from "node:fs";
+
+const dir = ".";
+
+const files: Array<{
+  name: string;
+  isDir: boolean;
+  lastCommitMessage?: string;
+  lastCommitTime?: number;
+}> = [];
+
+for await (const dirEntry of Deno.readDir(dir)) {
+  let lastCommitMessage: string | undefined = undefined;
+  let lastCommitTime: number | undefined = undefined;
+
+  try {
+    const commits = await git.log({
+      fs,
+      dir,
+      depth: 1,
+      filepath: dirEntry.name,
+    });
+    if (commits.length > 0) {
+      lastCommitMessage = commits[0].commit.message;
+      lastCommitTime = commits[0].commit.committer.timestamp * 1000;
+    }
+  } catch {
+    // Ignore errors for now
+  }
+
+  files.push({
+    name: dirEntry.name,
+    isDir: dirEntry.isDirectory,
+    lastCommitMessage,
+    lastCommitTime,
+  });
+}
+
+const readme = await Deno.readTextFile("README.md").then((text) =>
+  marked.parse(text)
+);
+
+const Index = () => {
   return (
     <>
       <ul>
@@ -22,7 +62,7 @@ const Index = (props: Props) => {
 
       <table>
         <tbody>
-          {props.files.map((file) => (
+          {files.map((file) => (
             <tr>
               <td>
                 {file.isDir ? (
@@ -32,12 +72,21 @@ const Index = (props: Props) => {
                 )}
               </td>
               <td>{file.name}</td>
+              <td>{file.lastCommitMessage}</td>
+              <td>
+                {file.lastCommitTime !== undefined
+                  ? new Date(file.lastCommitTime).toLocaleString("de-DE", {
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    })
+                  : "-"}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <div dangerouslySetInnerHTML={{ __html: props.readme }} />
+      <div dangerouslySetInnerHTML={{ __html: readme }} />
     </>
   );
 };

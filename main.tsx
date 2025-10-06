@@ -1,24 +1,12 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { serveStatic } from "hono/deno";
-import { marked } from "marked";
 
 import Layout from "./components/layout.tsx";
 import Branches from "./pages/branches.tsx";
 import Commits from "./pages/commits.tsx";
 import Index from "./pages/index.tsx";
 import Tags from "./pages/tags.tsx";
-
-const dir = ".";
-
-const dirEntries: Array<{ name: string; isDir: boolean }> = [];
-for await (const dirEntry of Deno.readDir(dir)) {
-  dirEntries.push({ name: dirEntry.name, isDir: dirEntry.isDirectory });
-}
-
-const readme = await Deno.readTextFile("README.md").then((text) =>
-  marked.parse(text)
-);
 
 const app = new Hono();
 
@@ -27,7 +15,7 @@ app.use("/*", cors());
 app.get("/", (c) =>
   c.html(
     <Layout>
-      <Index files={dirEntries} readme={readme} />
+      <Index />
     </Layout>
   )
 );
