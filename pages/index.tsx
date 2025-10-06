@@ -1,6 +1,13 @@
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime.js";
+import "dayjs/locale/de.js";
+
 import fs from "fs";
 import git from "isomorphic-git";
 import { marked } from "marked";
+
+dayjs.locale("de");
+dayjs.extend(relativeTime);
 
 const dir = ".";
 
@@ -72,12 +79,13 @@ const Index = () => {
               </td>
               <td>{file.name}</td>
               <td>{file.lastCommitMessage}</td>
-              <td>
+              <td
+                title={dayjs(file.lastCommitTime).format(
+                  "dddd, DD.MM.YYYY, HH:mm:ss"
+                )}
+              >
                 {file.lastCommitTime !== undefined
-                  ? new Date(file.lastCommitTime).toLocaleString("de-DE", {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                    })
+                  ? dayjs(file.lastCommitTime).fromNow()
                   : "-"}
               </td>
             </tr>
