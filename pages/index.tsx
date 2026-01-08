@@ -6,6 +6,8 @@ import fs from "fs";
 import git from "isomorphic-git";
 import { marked } from "marked";
 
+import Nav from "../components/nav.tsx";
+
 dayjs.locale("de");
 dayjs.extend(relativeTime);
 
@@ -81,22 +83,7 @@ const readme = await Deno.readTextFile("README.md").then((text) =>
 const Index = () => {
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <a href="/commits">Commits</a>
-          </li>
-          <li>
-            <a href="/branches">Branches</a>
-          </li>
-          <li>
-            <a href="/tags">Tags</a>
-          </li>
-          <li>
-            <a href="/insight">Insight</a>
-          </li>
-        </ul>
-      </nav>
+      <Nav />
 
       <table>
         <tbody>
@@ -104,9 +91,9 @@ const Index = () => {
             <tr>
               <td>
                 {file.isDir ? (
-                  <img class="icon" src="./static/folder.svg" />
+                  <img class="icon" src="/static/folder.svg" />
                 ) : (
-                  <img class="icon" src="./static/file.svg" />
+                  <img class="icon" src="/static/file.svg" />
                 )}
               </td>
               <td>{file.name}</td>

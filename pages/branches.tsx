@@ -1,6 +1,8 @@
 import git from "isomorphic-git";
 import fs from "fs";
 
+import Nav from "../components/nav.tsx";
+
 const dir = ".";
 
 const Branches = async () => {
@@ -8,6 +10,7 @@ const Branches = async () => {
 
   return (
     <>
+      <Nav />
       <h1>Branches</h1>
       <ul>
         {branches.map((branch) => (

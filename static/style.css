@@ -206,6 +206,164 @@ li br {
 }
 
 /**
+ * MARK: Commit Groups
+ */
+
+.commit-group {
+    margin-bottom: 32px;
+}
+
+.commit-date {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 12px 0;
+    padding: 0;
+    border: none;
+}
+
+/**
+ * MARK: Commit Detail
+ */
+
+.back-link {
+    margin-bottom: 16px;
+}
+
+.commit-meta {
+    margin-bottom: 24px;
+    padding: 16px;
+    background-color: var(--color-surface);
+    border-radius: 6px;
+}
+
+.commit-meta p {
+    margin: 0 0 4px 0;
+}
+
+.commit-meta p:last-child {
+    margin-bottom: 0;
+}
+
+.commit-date-full {
+    color: var(--color-text-secondary);
+    font-size: 13px;
+}
+
+.commit-oid code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    padding: 2px 6px;
+    background-color: var(--color-hover-bg);
+    border-radius: 4px;
+}
+
+.commit-body {
+    margin-bottom: 24px;
+    padding: 16px;
+    background-color: var(--color-surface);
+    border-radius: 6px;
+}
+
+.commit-body pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font-family: var(--font-family);
+}
+
+.file-diff {
+    margin-bottom: 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.file-header {
+    padding: 8px 12px;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 13px;
+}
+
+.file-status {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.file-status-added {
+    background-color: #2da44e;
+    color: white;
+}
+
+.file-status-modified {
+    background-color: #bf8700;
+    color: white;
+}
+
+.file-status-deleted {
+    background-color: #cf222e;
+    color: white;
+}
+
+.file-path {
+    color: var(--color-text-primary);
+}
+
+.diff-content {
+    margin: 0;
+    padding: 0;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-x: auto;
+}
+
+.diff-content div {
+    padding: 0 12px;
+    white-space: pre;
+}
+
+.diff-add {
+    background-color: rgba(46, 160, 67, 0.15);
+    color: #1a7f37;
+}
+
+.diff-del {
+    background-color: rgba(255, 129, 130, 0.15);
+    color: #cf222e;
+}
+
+.diff-ctx {
+    color: var(--color-text-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+    .diff-add {
+        background-color: rgba(46, 160, 67, 0.2);
+        color: #3fb950;
+    }
+
+    .diff-del {
+        background-color: rgba(248, 81, 73, 0.2);
+        color: #f85149;
+    }
+}
+
+.diff-binary {
+    padding: 12px;
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+/**
  * MARK: Icons
  */
 
