@@ -201,6 +201,52 @@ li em {
     margin-bottom: 2px;
 }
 
+/**
+ * MARK: Branches
+ */
+
+.current-branch {
+    border-color: var(--color-link);
+    background-color: var(--color-surface);
+}
+
+.branch-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-link);
+    border: 1px solid var(--color-link);
+    border-radius: 12px;
+}
+
+.branch-meta {
+    margin-top: 8px;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+}
+
+.branch-meta span {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--color-text-primary);
+}
+
+.branch-meta em {
+    display: inline;
+    font-style: normal;
+    margin-right: 8px;
+}
+
+.commit-sha {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 12px;
+    padding: 2px 6px;
+    background-color: var(--color-surface);
+    border-radius: 3px;
+}
+
 li br {
     display: none;
 }
