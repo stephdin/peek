@@ -4,13 +4,13 @@ import fs from "fs";
 const dir = ".";
 
 const Commits = async () => {
-  const commits = await git.log({ fs, dir });
+  const log = await git.log({ fs, dir });
 
   return (
     <>
       <h1>Commits</h1>
       <ul>
-        {commits.map((commit) => (
+        {log.map((commit) => (
           <li key={commit.oid}>
             <strong>{commit.commit.message.split("\n")[0]}</strong>
             <br />

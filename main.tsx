@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 import { serveStatic } from "hono/deno";
 
 import Layout from "./components/layout.tsx";
+import Insight from "./pages/insight.tsx";
 import Branches from "./pages/branches.tsx";
 import Commits from "./pages/commits.tsx";
 import Index from "./pages/index.tsx";
@@ -40,6 +41,14 @@ app.get("/tags", (c) =>
   c.html(
     <Layout>
       <Tags />
+    </Layout>
+  )
+);
+
+app.get("/insight", (c) =>
+  c.html(
+    <Layout>
+      <Insight />
     </Layout>
   )
 );

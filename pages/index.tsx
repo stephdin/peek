@@ -45,6 +45,35 @@ for await (const dirEntry of Deno.readDir(dir)) {
   });
 }
 
+// Sort files: directories first, then README, then LICENSE, then other files alphabetically
+files.sort((a, b) => {
+  const aLower = a.name.toLowerCase();
+  const bLower = b.name.toLowerCase();
+
+  // Directories first
+  if (a.isDir && !b.isDir) return -1;
+  if (!a.isDir && b.isDir) return 1;
+
+  // Within files, apply special ordering
+  if (!a.isDir && !b.isDir) {
+    const aIsReadme = aLower.includes("readme");
+    const bIsReadme = bLower.includes("readme");
+    const aIsLicense = aLower.includes("license");
+    const bIsLicense = bLower.includes("license");
+
+    // README comes first among files
+    if (aIsReadme && !bIsReadme) return -1;
+    if (!aIsReadme && bIsReadme) return 1;
+
+    // LICENSE comes second among files
+    if (aIsLicense && !bIsLicense) return -1;
+    if (!aIsLicense && bIsLicense) return 1;
+  }
+
+  // Alphabetical within each group
+  return aLower.localeCompare(bLower);
+});
+
 const readme = await Deno.readTextFile("README.md").then((text) =>
   marked.parse(text)
 );
@@ -52,19 +81,22 @@ const readme = await Deno.readTextFile("README.md").then((text) =>
 const Index = () => {
   return (
     <>
-      <ul>
-        <li>
-          <a href="/commits">View Commits</a>
-        </li>
-        <li>
-          <a href="/branches">Branches</a>
-        </li>
-        <li>
-          <a href="/tags">Tags</a>
-        </li>
-      </ul>
-
-      <h1>Files</h1>
+      <nav>
+        <ul>
+          <li>
+            <a href="/commits">Commits</a>
+          </li>
+          <li>
+            <a href="/branches">Branches</a>
+          </li>
+          <li>
+            <a href="/tags">Tags</a>
+          </li>
+          <li>
+            <a href="/insight">Insight</a>
+          </li>
+        </ul>
+      </nav>
 
       <table>
         <tbody>
@@ -93,7 +125,7 @@ const Index = () => {
         </tbody>
       </table>
 
-      <div dangerouslySetInnerHTML={{ __html: readme }} />
+      <div class="markdown-body" dangerouslySetInnerHTML={{ __html: readme }} />
     </>
   );
 };
